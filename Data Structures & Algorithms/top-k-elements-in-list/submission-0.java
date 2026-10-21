@@ -1,0 +1,20 @@
+class Solution {
+    public int[] topKFrequent(int[] nums, int k) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int n : nums) {
+            map.put(n, map.getOrDefault(n, 0) + 1); // fix: put, not putIfAbsent
+        }
+
+        List<int[]> arr = new ArrayList<>(); // fix: syntax
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()) { // fix: Entry
+            arr.add(new int[] {entry.getValue(), entry.getKey()});
+        }
+
+        arr.sort((a, b) -> b[0] - a[0]);
+        int[] res = new int[k];
+        for (int i = 0; i < k; i++) {
+            res[i] = arr.get(i)[1];
+        }
+        return res;
+    }
+}
